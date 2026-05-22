@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart – FlameDish</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cart-page-item {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s;
+    }
+    .cart-page-item:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+    .cart-page-emoji { font-size: 3.5rem; flex-shrink: 0; }
+    .cart-page-name { font-weight: 700; font-size: 1rem; }
+    .cart-page-sub { font-size: 0.82rem; color: var(--ash); margin-top: 2px; }
+    .cart-page-price { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; color: var(--flame); }
+    .remove-btn { background: none; border: none; color: var(--ash); font-size: 1.1rem; cursor: pointer; transition: color 0.2s; padding: 4px; }
+    .remove-btn:hover { color: #dc3545; }
+    .summary-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      position: sticky;
+      top: 90px;
+    }
+    .promo-input-wrap {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .promo-input-wrap input {
+      border: 2px solid var(--mist);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      flex: 1;
+      transition: border-color 0.2s;
+    }
+    .promo-input-wrap input:focus { border-color: var(--flame); }
+    .promo-apply-btn {
+      background: var(--charcoal);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .promo-apply-btn:hover { background: var(--flame); }
+    .cart-empty-page {
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+    .clear-btn {
+      background: none;
+      border: 2px solid #dc3545;
+      color: #dc3545;
+      border-radius: 50px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .clear-btn:hover { background: #dc3545; color: white; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="brand-logo navbar-brand" href="index.html">🔥 Flame<span>Dish</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+        <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+      </ul>
+      <button class="nav-link cart-btn" onclick="openCart()">
+        🛒 Cart <span class="cart-badge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <h1>Your Cart 🛒</h1>
+    <p id="cartCountLabel">Loading…</p>
+  </div>
+</section>
+
+<!-- CART CONTENT -->
+<section class="py-section">
+  <div class="container">
+    <div id="cartPageEmpty" class="cart-empty-page" style="display:none">
+      <div style="font-size:6rem;margin-bottom:1.5rem">🛒</div>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:0.5rem">Your cart is empty</h3>
+      <p style="color:var(--ash);margin-bottom:2rem">Looks like you haven't added anything yet</p>
+      <a href="menu.html" class="btn-flame">Browse Menu 🍽️</a>
+    </div>
+
+    <div id="cartPageContent">
+      <div class="row g-4">
+        <!-- CART ITEMS -->
+        <div class="col-lg-8">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin:0">
+              Items in Cart
+            </h5>
+            <button class="clear-btn" onclick="confirmClear()">🗑️ Clear All</button>
+          </div>
+          <div id="cartPageItems"></div>
+          <!-- Upsell -->
+          <div style="background:white;border-radius:var(--radius);padding:1.4rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-top:1rem">
+            <p style="font-weight:600;font-size:0.9rem;margin-bottom:1rem">🍭 Add more to your order</p>
+            <div class="d-flex gap-3 overflow-auto pb-2">
+              <div style="min-width:160px;background:var(--mist);border-radius:var(--radius-sm);padding:1rem;text-align:center;cursor:pointer" onclick="Cart.add('u1','Garlic Bread',89,'🥖');renderCartPage()">
+                <div style="font-size:2.5rem">🥖</div>
+                <div style="font-size:0.82rem;font-weight:600;margin-top:0.3rem">Garlic Bread</div>
+                <div style="font-size:0.78rem;color:var(--flame);font-weight:700">₹89</div>
+                <button class="add-btn mt-2" style="width:100%;font-size:0.78rem;padding:0.3rem">+ Add</button>
+              </div>
+              <div style="min-width:160px;background:var(--mist);border-radius:var(--radius-sm);padding:1rem;text-align:center;cursor:pointer" onclick="Cart.add('u2','Cold Drink',59,'🥤');renderCartPage()">
+                <div style="font-size:2.5rem">🥤</div>
+                <div style="font-size:0.82rem;font-weight:600;margin-top:0.3rem">Cold Drink</div>
+                <div style="font-size:0.78rem;color:var(--flame);font-weight:700">₹59</div>
+                <button class="add-btn mt-2" style="width:100%;font-size:0.78rem;padding:0.3rem">+ Add</button>
+              </div>
+              <div style="min-width:160px;background:var(--mist);border-radius:var(--radius-sm);padding:1rem;text-align:center" onclick="Cart.add('u3','Ice Cream',129,'🍦');renderCartPage()">
+                <div style="font-size:2.5rem">🍦</div>
+                <div style="font-size:0.82rem;font-weight:600;margin-top:0.3rem">Ice Cream</div>
+                <div style="font-size:0.78rem;color:var(--flame);font-weight:700">₹129</div>
+                <button class="add-btn mt-2" style="width:100%;font-size:0.78rem;padding:0.3rem">+ Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="col-lg-4">
+          <div class="summary-card">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:1.3rem">Order Summary</h5>
+
+            <!-- Promo -->
+            <div style="margin-bottom:1.2rem">
+              <label style="font-size:0.82rem;font-weight:600;color:var(--smoke);display:block;margin-bottom:0.4rem">Promo Code</label>
+              <div class="promo-input-wrap">
+                <input type="text" id="promoInput" placeholder="e.g. FIRST50" style="text-transform:uppercase">
+                <button class="promo-apply-btn" onclick="applyPromo()">Apply</button>
+              </div>
+              <div id="promoResult" style="font-size:0.82rem"></div>
+              <div style="font-size:0.75rem;color:var(--ash);margin-top:0.4rem">Try: FIRST50 · SPICY20 · SAVE100</div>
+            </div>
+
+            <div id="cartSummaryRows"></div>
+
+            <a href="checkout.html" class="checkout-btn" style="display:block;text-align:center;text-decoration:none;margin-top:1rem">
+              Proceed to Checkout →
+            </a>
+            <a href="menu.html" style="display:block;text-align:center;color:var(--ash);font-size:0.85rem;margin-top:0.8rem;text-decoration:none">
+              ← Continue Shopping
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="d-flex justify-content-between flex-wrap gap-2 footer-bottom" style="padding:1rem 0">
+      <span class="footer-brand" style="font-size:1.3rem">🔥 FlameDish</span>
+      <span>© 2025 FlameDish. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <span class="cart-title">🛒 Your Cart</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+<script>
+  function renderCartPage() {
+    const count = Cart.count;
+    const label = document.getElementById('cartCountLabel');
+    const empty = document.getElementById('cartPageEmpty');
+    const content = document.getElementById('cartPageContent');
+    const items = document.getElementById('cartPageItems');
+    const summary = document.getElementById('cartSummaryRows');
+
+    if (label) label.textContent = count ? `${count} item${count > 1 ? 's' : ''} in your cart` : 'Your cart is empty';
+
+    if (count === 0) {
+      if (empty) empty.style.display = 'block';
+      if (content) content.style.display = 'none';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    if (content) content.style.display = 'block';
+
+    // Render items
+    if (items) {
+      items.innerHTML = Cart.items.map(item => `
+        <div class="cart-page-item">
+          <div class="cart-page-emoji">${item.emoji}</div>
+          <div style="flex:1">
+            <div class="cart-page-name">${item.name}</div>
+            <div class="cart-page-sub">₹${item.price} each</div>
+          </div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="Cart.updateQty('${item.id}',-1);renderCartPage()">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="Cart.updateQty('${item.id}',1);renderCartPage()">+</button>
+          </div>
+          <div class="cart-page-price ms-3">₹${item.price * item.qty}</div>
+          <button class="remove-btn ms-2" onclick="Cart.remove('${item.id}');renderCartPage()" title="Remove">🗑</button>
+        </div>
+      `).join('');
+    }
+
+    // Render summary
+    if (summary) {
+      summary.innerHTML = `
+        <div class="summary-item"><span>Subtotal (${count} items)</span><span>₹${Cart.subtotal}</span></div>
+        <div class="summary-item"><span>Delivery fee</span><span style="color:${Cart.subtotal >= 299 ? '#27AE60' : 'inherit'}">${Cart.subtotal >= 299 ? '🆓 Free' : '₹' + Cart.delivery}</span></div>
+        <div class="summary-item"><span>Platform fee</span><span>₹10</span></div>
+        <div class="summary-item"><span>Taxes & charges (5%)</span><span>₹${Cart.tax}</span></div>
+        <div class="summary-total">
+          <span>Grand Total</span>
+          <span class="price">₹${Cart.grand + (Cart.subtotal >= 299 ? 0 : 0) + 10}</span>
+        </div>
+        ${Cart.subtotal >= 299 ? '<div style="background:#E8F5E9;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.82rem;color:#27AE60;font-weight:600;margin-top:0.8rem">✅ You qualify for free delivery!</div>' : `<div style="background:#FFF8F0;border-radius:8px;padding:0.6rem 0.9rem;font-size:0.82rem;color:var(--ash);margin-top:0.8rem">Add ₹${299 - Cart.subtotal} more for free delivery 🛵</div>`}
+      `;
+    }
+  }
+
+  function confirmClear() {
+    if (confirm('Remove all items from cart?')) {
+      Cart.clear();
+      renderCartPage();
+    }
+  }
+
+  // Override Cart.save to also update page
+  const origSave = Cart.save.bind(Cart);
+  Cart.save = function() { origSave(); renderCartPage(); };
+
+  document.addEventListener('DOMContentLoaded', renderCartPage);
+</script>
+</body>
+</html>

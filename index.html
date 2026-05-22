@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlameDish – Food Delivery</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="brand-logo navbar-brand" href="index.html">🔥 Flame<span>Dish</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+        <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <span style="color:var(--ash);font-size:0.88rem">📍 Mumbai</span>
+        <button class="nav-link cart-btn" onclick="openCart()">
+          🛒 Cart <span class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 hero-content" data-aos="fade-right">
+        <div class="hero-eyebrow">🚀 Fast • Fresh • Flavourful</div>
+        <h1>Order Food<br><span class="highlight">You'll Love,</span><br>Delivered Fast</h1>
+        <p>From Mumbai's finest kitchens to your door in 30 minutes. 500+ restaurants, 2000+ dishes.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="menu.html" class="btn-flame">Explore Menu 🍽️</a>
+          <a href="#restaurants" class="btn-outline-flame">Browse Restaurants</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">500+</div>
+            <div class="stat-label">Restaurants</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">30min</div>
+            <div class="stat-label">Avg Delivery</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4.8★</div>
+            <div class="stat-label">Avg Rating</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-visual mt-5 mt-lg-0">
+        <div style="position:relative;display:inline-block">
+          <span class="hero-food-emoji">🍛</span>
+          <div class="floating-chips">
+            <div class="chip">⭐ 4.9 Top Rated</div>
+            <div class="chip">🕐 25 min away</div>
+            <div class="chip">🆓 Free Delivery</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="search-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="search-wrapper">
+          <span style="margin-right:0.5rem;font-size:1.1rem">🔍</span>
+          <input type="text" placeholder="Search for dishes, restaurants, cuisines…" oninput="heroSearch(this.value)">
+          <button class="search-btn" onclick="window.location.href='menu.html'">Search</button>
+        </div>
+        <div class="d-flex gap-2 mt-2 flex-wrap">
+          <span style="font-size:0.78rem;color:var(--ash)">Popular:</span>
+          <a href="menu.html" style="font-size:0.78rem;color:var(--flame);text-decoration:none">Biryani</a>
+          <a href="menu.html" style="font-size:0.78rem;color:var(--flame);text-decoration:none">Pizza</a>
+          <a href="menu.html" style="font-size:0.78rem;color:var(--flame);text-decoration:none">Burger</a>
+          <a href="menu.html" style="font-size:0.78rem;color:var(--flame);text-decoration:none">Pasta</a>
+          <a href="menu.html" style="font-size:0.78rem;color:var(--flame);text-decoration:none">Sushi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="py-section">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-tag">What's on your mind?</div>
+      <h2 class="section-title">Browse by Category</h2>
+    </div>
+    <div class="d-flex gap-3 flex-wrap justify-content-center">
+      <button class="category-pill" onclick="window.location.href='menu.html'">🍕 Pizza</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🍔 Burgers</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🍛 Indian</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🍣 Sushi</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🍝 Pasta</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🌮 Mexican</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🍜 Noodles</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🧁 Desserts</button>
+      <button class="category-pill" onclick="window.location.href='menu.html'">🥗 Healthy</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO BANNERS -->
+<section class="py-2">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="promo-banner">
+          <div class="section-tag" style="background:rgba(255,255,255,0.2);color:white;margin-bottom:0.5rem">Limited Time</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;margin-bottom:0.4rem">50% OFF<br>Your First Order</h3>
+          <p style="opacity:0.8;font-size:0.88rem;margin-bottom:0.5rem">Use code at checkout</p>
+          <div class="promo-code">FIRST50</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="promo-banner" style="background:linear-gradient(135deg,#1A1A1A,#3D2000)">
+          <div class="section-tag" style="background:rgba(255,184,0,0.2);color:#FFB800;margin-bottom:0.5rem">Free Delivery</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;margin-bottom:0.4rem">Orders above<br>₹299 🛵</h3>
+          <p style="opacity:0.8;font-size:0.88rem;margin-bottom:0.5rem">No code needed. Always free!</p>
+          <div class="promo-code" style="border-color:rgba(255,184,0,0.5);background:rgba(255,184,0,0.15)">AUTO APPLIED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED DISHES -->
+<section class="py-section">
+  <div class="container">
+    <div class="d-flex align-items-end justify-content-between mb-4">
+      <div>
+        <div class="section-tag">Hot &amp; Popular</div>
+        <h2 class="section-title">Today's Top Picks 🔥</h2>
+      </div>
+      <a href="menu.html" class="btn-flame" style="padding:0.6rem 1.4rem;font-size:0.88rem">View All →</a>
+    </div>
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="food-card" data-category="indian" data-name="chicken biryani">
+          <div class="food-card-img-wrap">
+            <span>🍛</span>
+            <span class="food-badge top">🔥 Top</span>
+            <button class="food-fav" onclick="toggleFav('f1',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Chicken Biryani</div>
+            <div class="food-desc">Aromatic basmati rice with tender chicken, dum-cooked with saffron & spices.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.8 (230)</span>
+              <span class="food-time">⏱ 35 min</span>
+            </div>
+            <div class="food-price-row" data-price="299" data-rating="4.8">
+              <span class="food-price">₹299</span>
+              <button class="add-btn" onclick="Cart.add('f1','Chicken Biryani',299,'🍛')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="food-card" data-category="pizza" data-name="margherita pizza">
+          <div class="food-card-img-wrap">
+            <span>🍕</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('f2',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Margherita Pizza</div>
+            <div class="food-desc">Classic thin-crust with San Marzano tomatoes, fresh mozzarella & basil.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.6 (180)</span>
+              <span class="food-time">⏱ 25 min</span>
+            </div>
+            <div class="food-price-row" data-price="349" data-rating="4.6">
+              <span class="food-price">₹349</span>
+              <button class="add-btn" onclick="Cart.add('f2','Margherita Pizza',349,'🍕')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="food-card" data-category="burger" data-name="smash burger">
+          <div class="food-card-img-wrap">
+            <span>🍔</span>
+            <span class="food-badge">🥩 Beef</span>
+            <button class="food-fav" onclick="toggleFav('f3',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Classic Smash Burger</div>
+            <div class="food-desc">Double smashed patty, American cheese, caramelised onions & secret sauce.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.9 (310)</span>
+              <span class="food-time">⏱ 20 min</span>
+            </div>
+            <div class="food-price-row" data-price="279" data-rating="4.9">
+              <span class="food-price">₹279</span>
+              <button class="add-btn" onclick="Cart.add('f3','Smash Burger',279,'🍔')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="food-card" data-category="dessert" data-name="gulab jamun">
+          <div class="food-card-img-wrap">
+            <span>🍮</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('f4',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Gulab Jamun</div>
+            <div class="food-desc">Soft milk solids dumplings soaked in rose-cardamom sugar syrup. Served warm.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.7 (145)</span>
+              <span class="food-time">⏱ 15 min</span>
+            </div>
+            <div class="food-price-row" data-price="149" data-rating="4.7">
+              <span class="food-price">₹149</span>
+              <button class="add-btn" onclick="Cart.add('f4','Gulab Jamun',149,'🍮')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESTAURANTS -->
+<section class="py-section" id="restaurants" style="background:white">
+  <div class="container">
+    <div class="d-flex align-items-end justify-content-between mb-4">
+      <div>
+        <div class="section-tag">Nearby</div>
+        <h2 class="section-title">Popular Restaurants 🏪</h2>
+      </div>
+      <a href="menu.html" class="btn-flame" style="padding:0.6rem 1.4rem;font-size:0.88rem">See All →</a>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-4">
+        <div class="restaurant-card">
+          <div class="rest-img" style="background:linear-gradient(135deg,#FFF0E5,#FFD9B3)">
+            🍕
+            <span class="rest-tag">🟢 Open</span>
+          </div>
+          <div class="rest-body">
+            <div class="rest-name">Pizzeria Roma</div>
+            <div class="rest-cuisine">Italian · Pizza · Pasta</div>
+            <div class="rest-info">
+              <div class="rest-info-item"><span class="icon">⭐</span><strong>4.7</strong></div>
+              <div class="rest-info-item"><span class="icon">⏱</span><strong>25-30</strong> min</div>
+              <div class="rest-info-item"><span class="icon">🛵</span><strong>Free</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="restaurant-card">
+          <div class="rest-img" style="background:linear-gradient(135deg,#FFF8E0,#FFE88A)">
+            🍛
+            <span class="rest-tag">🟢 Open</span>
+          </div>
+          <div class="rest-body">
+            <div class="rest-name">Spice Garden</div>
+            <div class="rest-cuisine">Indian · Mughlai · Tandoor</div>
+            <div class="rest-info">
+              <div class="rest-info-item"><span class="icon">⭐</span><strong>4.9</strong></div>
+              <div class="rest-info-item"><span class="icon">⏱</span><strong>35-40</strong> min</div>
+              <div class="rest-info-item"><span class="icon">🛵</span><strong>₹30</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="restaurant-card">
+          <div class="rest-img" style="background:linear-gradient(135deg,#FFE5E5,#FFBABA)">
+            🍔
+            <span class="rest-tag">🟢 Open</span>
+          </div>
+          <div class="rest-body">
+            <div class="rest-name">BurgerHive</div>
+            <div class="rest-cuisine">American · Burgers · Shakes</div>
+            <div class="rest-info">
+              <div class="rest-info-item"><span class="icon">⭐</span><strong>4.8</strong></div>
+              <div class="rest-info-item"><span class="icon">⏱</span><strong>20-25</strong> min</div>
+              <div class="rest-info-item"><span class="icon">🛵</span><strong>Free</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-tag">Simple & Fast</div>
+      <h2 class="section-title">How FlameDish Works</h2>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-md-4">
+        <div style="font-size:3.5rem;margin-bottom:1rem">📍</div>
+        <h5 style="font-weight:700;margin-bottom:0.5rem">1. Set Location</h5>
+        <p style="color:var(--ash);font-size:0.92rem">Enter your delivery address and see restaurants nearby.</p>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size:3.5rem;margin-bottom:1rem">🛍️</div>
+        <h5 style="font-weight:700;margin-bottom:0.5rem">2. Browse & Order</h5>
+        <p style="color:var(--ash);font-size:0.92rem">Pick from 2000+ dishes, add to cart, and checkout in seconds.</p>
+      </div>
+      <div class="col-md-4">
+        <div style="font-size:3.5rem;margin-bottom:1rem">🚀</div>
+        <h5 style="font-weight:700;margin-bottom:0.5rem">3. Fast Delivery</h5>
+        <p style="color:var(--ash);font-size:0.92rem">Real-time tracking. Hot food at your door in under 30 mins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand">🔥 FlameDish</div>
+        <p style="font-size:0.88rem;max-width:280px;line-height:1.7">Mumbai's most loved food delivery platform. Hot food, fast delivery, zero compromises.</p>
+        <div class="d-flex gap-3 mt-3">
+          <span style="font-size:1.4rem;cursor:pointer">📘</span>
+          <span style="font-size:1.4rem;cursor:pointer">📸</span>
+          <span style="font-size:1.4rem;cursor:pointer">🐦</span>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-title">For Foodies</div>
+        <ul class="footer-links">
+          <li><a href="menu.html">Browse Menu</a></li>
+          <li><a href="#">Offers</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="footer-title">Download App</div>
+        <p style="font-size:0.85rem;margin-bottom:1rem">Get ₹100 off on your first app order!</p>
+        <div class="d-flex gap-2">
+          <button style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;border-radius:10px;padding:0.5rem 1rem;font-size:0.82rem;cursor:pointer">🍎 App Store</button>
+          <button style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;border-radius:10px;padding:0.5rem 1rem;font-size:0.82rem;cursor:pointer">🤖 Play Store</button>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="d-flex justify-content-between flex-wrap gap-2 footer-bottom">
+      <span>© 2025 FlameDish. All rights reserved.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <span class="cart-title">🛒 Your Cart</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

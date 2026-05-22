@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu – FlameDish</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="brand-logo navbar-brand" href="index.html">🔥 Flame<span>Dish</span></a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+        <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+      </ul>
+      <button class="nav-link cart-btn" onclick="openCart()">
+        🛒 Cart <span class="cart-badge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <h1>Our Full Menu 🍽️</h1>
+    <p>Handpicked dishes from Mumbai's best kitchens</p>
+  </div>
+</section>
+
+<!-- FILTER & SEARCH -->
+<section style="background:white;padding:1.5rem 0;border-bottom:1px solid var(--mist)">
+  <div class="container">
+    <div class="row g-3 align-items-center">
+      <div class="col-lg-5">
+        <div class="search-wrapper">
+          <span style="margin-right:0.5rem">🔍</span>
+          <input type="text" placeholder="Search dishes…" oninput="searchMenu(this.value)" id="menuSearch">
+          <button class="search-btn" onclick="searchMenu(document.getElementById('menuSearch').value)">Go</button>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="d-flex gap-2 scroll-categories">
+          <button class="category-pill active" onclick="filterCategory('all',this)">🍽️ All</button>
+          <button class="category-pill" onclick="filterCategory('indian',this)">🍛 Indian</button>
+          <button class="category-pill" onclick="filterCategory('pizza',this)">🍕 Pizza</button>
+          <button class="category-pill" onclick="filterCategory('burger',this)">🍔 Burgers</button>
+          <button class="category-pill" onclick="filterCategory('sushi',this)">🍣 Sushi</button>
+          <button class="category-pill" onclick="filterCategory('pasta',this)">🍝 Pasta</button>
+          <button class="category-pill" onclick="filterCategory('dessert',this)">🧁 Desserts</button>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <select class="filter-select w-100" onchange="sortMenu(this.value)">
+          <option value="">Sort By</option>
+          <option value="rating">⭐ Highest Rated</option>
+          <option value="price-asc">💸 Price: Low to High</option>
+          <option value="price-desc">💎 Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU GRID -->
+<section class="py-section">
+  <div class="container">
+    <div class="row g-4" id="menuGrid">
+
+      <!-- INDIAN -->
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="indian" data-name="chicken biryani">
+          <div class="food-card-img-wrap"><span>🍛</span>
+            <span class="food-badge top">🔥 Best Seller</span>
+            <button class="food-fav" onclick="toggleFav('m1',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Chicken Biryani</div>
+            <div class="food-desc">Fragrant basmati, slow-cooked chicken, whole spices & caramelised onions.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.8 (230)</span>
+              <span class="food-time">⏱ 35 min</span>
+            </div>
+            <div class="food-price-row" data-price="299" data-rating="4.8">
+              <span class="food-price">₹299</span>
+              <button class="add-btn" onclick="Cart.add('m1','Chicken Biryani',299,'🍛')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="indian" data-name="butter chicken">
+          <div class="food-card-img-wrap"><span>🍗</span>
+            <span class="food-badge veg" style="background:#E67E22">🌶️ Spicy</span>
+            <button class="food-fav" onclick="toggleFav('m2',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Butter Chicken</div>
+            <div class="food-desc">Creamy tomato-based curry with tender grilled chicken. Pure comfort.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.9 (415)</span>
+              <span class="food-time">⏱ 30 min</span>
+            </div>
+            <div class="food-price-row" data-price="319" data-rating="4.9">
+              <span class="food-price">₹319</span>
+              <button class="add-btn" onclick="Cart.add('m2','Butter Chicken',319,'🍗')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="indian" data-name="paneer tikka">
+          <div class="food-card-img-wrap"><span>🧀</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('m3',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Paneer Tikka</div>
+            <div class="food-desc">Marinated cottage cheese cubes, char-grilled in tandoor with mint chutney.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.6 (182)</span>
+              <span class="food-time">⏱ 25 min</span>
+            </div>
+            <div class="food-price-row" data-price="249" data-rating="4.6">
+              <span class="food-price">₹249</span>
+              <button class="add-btn" onclick="Cart.add('m3','Paneer Tikka',249,'🧀')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="indian" data-name="dal makhani">
+          <div class="food-card-img-wrap"><span>🫘</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('m4',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Dal Makhani</div>
+            <div class="food-desc">Slow-simmered black lentils in rich buttery tomato gravy. Served with naan.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.7 (98)</span>
+              <span class="food-time">⏱ 20 min</span>
+            </div>
+            <div class="food-price-row" data-price="229" data-rating="4.7">
+              <span class="food-price">₹229</span>
+              <button class="add-btn" onclick="Cart.add('m4','Dal Makhani',229,'🫘')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PIZZA -->
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="pizza" data-name="margherita pizza">
+          <div class="food-card-img-wrap"><span>🍕</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('m5',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Margherita Pizza</div>
+            <div class="food-desc">Classic Naples-style with crushed tomatoes, fresh mozzarella, basil oil.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.6 (180)</span>
+              <span class="food-time">⏱ 25 min</span>
+            </div>
+            <div class="food-price-row" data-price="349" data-rating="4.6">
+              <span class="food-price">₹349</span>
+              <button class="add-btn" onclick="Cart.add('m5','Margherita Pizza',349,'🍕')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="pizza" data-name="pepperoni pizza">
+          <div class="food-card-img-wrap"><span>🍕</span>
+            <span class="food-badge top">🔥 Hot Pick</span>
+            <button class="food-fav" onclick="toggleFav('m6',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Pepperoni Pizza</div>
+            <div class="food-desc">Loaded with spicy pepperoni slices on a thick tomato and cheese base.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.8 (274)</span>
+              <span class="food-time">⏱ 30 min</span>
+            </div>
+            <div class="food-price-row" data-price="429" data-rating="4.8">
+              <span class="food-price">₹429</span>
+              <button class="add-btn" onclick="Cart.add('m6','Pepperoni Pizza',429,'🍕')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BURGERS -->
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="burger" data-name="smash burger">
+          <div class="food-card-img-wrap"><span>🍔</span>
+            <span class="food-badge top">🏆 #1</span>
+            <button class="food-fav" onclick="toggleFav('m7',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Classic Smash Burger</div>
+            <div class="food-desc">Double smashed patty, American cheese, pickles, caramelised onions.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.9 (310)</span>
+              <span class="food-time">⏱ 20 min</span>
+            </div>
+            <div class="food-price-row" data-price="279" data-rating="4.9">
+              <span class="food-price">₹279</span>
+              <button class="add-btn" onclick="Cart.add('m7','Smash Burger',279,'🍔')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="burger" data-name="veggie burger">
+          <div class="food-card-img-wrap"><span>🥗</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('m8',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Crispy Veggie Burger</div>
+            <div class="food-desc">Crispy chickpea patty, avocado, tomato, lettuce, sriracha mayo.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.5 (122)</span>
+              <span class="food-time">⏱ 18 min</span>
+            </div>
+            <div class="food-price-row" data-price="239" data-rating="4.5">
+              <span class="food-price">₹239</span>
+              <button class="add-btn" onclick="Cart.add('m8','Veggie Burger',239,'🥗')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUSHI -->
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="sushi" data-name="salmon sushi">
+          <div class="food-card-img-wrap"><span>🍣</span>
+            <span class="food-badge top">💎 Premium</span>
+            <button class="food-fav" onclick="toggleFav('m9',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Salmon Sushi Platter</div>
+            <div class="food-desc">8-piece fresh salmon nigiri & maki roll with wasabi, ginger, soy sauce.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.8 (89)</span>
+              <span class="food-time">⏱ 40 min</span>
+            </div>
+            <div class="food-price-row" data-price="599" data-rating="4.8">
+              <span class="food-price">₹599</span>
+              <button class="add-btn" onclick="Cart.add('m9','Salmon Sushi',599,'🍣')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASTA -->
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="pasta" data-name="carbonara pasta">
+          <div class="food-card-img-wrap"><span>🍝</span>
+            <span class="food-badge veg" style="background:#9B59B6">⚡ New</span>
+            <button class="food-fav" onclick="toggleFav('m10',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Spaghetti Carbonara</div>
+            <div class="food-desc">Al dente pasta, guanciale, egg yolk, pecorino romano, cracked pepper.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.7 (143)</span>
+              <span class="food-time">⏱ 22 min</span>
+            </div>
+            <div class="food-price-row" data-price="389" data-rating="4.7">
+              <span class="food-price">₹389</span>
+              <button class="add-btn" onclick="Cart.add('m10','Spaghetti Carbonara',389,'🍝')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="dessert" data-name="gulab jamun">
+          <div class="food-card-img-wrap"><span>🍮</span>
+            <span class="food-badge veg">🌿 Veg</span>
+            <button class="food-fav" onclick="toggleFav('m11',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Gulab Jamun</div>
+            <div class="food-desc">Soft fried dumplings soaked in rose-saffron syrup. Served piping hot.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.7 (145)</span>
+              <span class="food-time">⏱ 15 min</span>
+            </div>
+            <div class="food-price-row" data-price="149" data-rating="4.7">
+              <span class="food-price">₹149</span>
+              <button class="add-btn" onclick="Cart.add('m11','Gulab Jamun',149,'🍮')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 col-xl-3 food-col">
+        <div class="food-card" data-category="dessert" data-name="chocolate lava cake">
+          <div class="food-card-img-wrap"><span>🍫</span>
+            <span class="food-badge top">❤️ Fave</span>
+            <button class="food-fav" onclick="toggleFav('m12',this)">🤍</button>
+          </div>
+          <div class="food-card-body">
+            <div class="food-name">Chocolate Lava Cake</div>
+            <div class="food-desc">Warm dark chocolate fondant with molten centre. Served with vanilla scoop.</div>
+            <div class="food-meta">
+              <span class="food-rating"><span>⭐</span>4.9 (201)</span>
+              <span class="food-time">⏱ 20 min</span>
+            </div>
+            <div class="food-price-row" data-price="199" data-rating="4.9">
+              <span class="food-price">₹199</span>
+              <button class="add-btn" onclick="Cart.add('m12','Lava Cake',199,'🍫')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end row -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="d-flex justify-content-between flex-wrap gap-2 footer-bottom" style="padding:1rem 0">
+      <span class="footer-brand" style="font-size:1.3rem">🔥 FlameDish</span>
+      <span>© 2025 FlameDish. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <span class="cart-title">🛒 Your Cart</span>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
